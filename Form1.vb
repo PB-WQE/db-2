@@ -4,19 +4,19 @@
 Public Class Form1
     ' data connecton = "
     'set up in the PUBLIC  area so they are available throughout
-    Dim conn As New OleDbConnection
-    Dim cmd As New OleDbCommand
-    Dim dt As New DataTable
-    Dim da As New OleDbDataAdapter(cmd)
-    Dim Rindex As Integer
-    Dim CompId As Integer
+    ' Dim conn As New OleDbConnection
+    ' Dim cmd As New OleDbCommand
+    ' Dim dt As New DataTable
+    ' Dim da As New OleDbDataAdapter(cmd)
+    'Dim Rindex As Integer
+    'Dim CompId As Integer
     Private bitmap As Bitmap
 
     Private Sub viewer()
         conn.Open()
         cmd = conn.CreateCommand()
         cmd.CommandType = CommandType.Text
-        da = New OleDbDataAdapter("Select * from tblDetails", conn)
+        ' da = New OleDbDataAdapter("Select * from tblDetails", conn)
         da.Fill(dt)
         DataGridView1.DataSource = dt
         DataGridView1.Refresh()
@@ -46,15 +46,15 @@ Public Class Form1
 
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\admin\Documents\repos\db2\CompetitionDB.accdb"
-        viewer()
+        '   conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\admin\Documents\repos\db2\CompetitionDB.accdb"
+        '  viewer()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
 
         Dim strsql As String
         strsql = "Insert into tblDetails ( CompetitorType, CompetitorName, Ev1,Ev2,Ev3,Ev4,Ev5) values (@type, @name, @Ev1, @ev2, @ev3, @ev4, @ev5);"
-        Dim cmdAppend As New OleDbCommand(strsql, conn)
+        '   Dim cmdAppend As New OleDbCommand(strsql, conn)
 
         cmdAppend.Parameters.AddWithValue("@type", txtCompType.Text)
         cmdAppend.Parameters.AddWithValue("@name", txtCompName.Text)
@@ -65,9 +65,9 @@ Public Class Form1
         cmdAppend.Parameters.AddWithValue("@Ev5", txtEv5.Text)
 
 
-        conn.Open()
-        cmdAppend.ExecuteNonQuery()
-        conn.Close()
+        ' conn.Open()
+        '  cmdAppend.ExecuteNonQuery()
+        ' conn.Close()
         viewer()
 
     End Sub
@@ -90,6 +90,7 @@ Public Class Form1
         viewer()
     End Sub
 
-
-
+    Private Sub btnShowTeam_Click(sender As Object, e As EventArgs) Handles btnShowTeam.Click
+        frmTeam.Visible = True
+    End Sub
 End Class
